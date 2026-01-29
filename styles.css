@@ -1,0 +1,210 @@
+                /* Глобальные настройки */
+html {
+    touch-action: manipulation;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+:root {
+    --olive-wood: #684E3D;
+    --limon-chiffon: #FDF0C1;
+    --dusty-taupe: #A18774;
+    --glass-wood: #7F6350A2;
+}
+*, *::before, *::after {
+    margin: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+[hidden] { display: none !important; }
+body, button {
+    color: white;
+    font-family: "Days One", sans-serif;
+}
+body {
+    height: 100%;
+    background-color: var(--olive-wood);
+}
+button {
+    background: transparent;
+    border: none;
+    -webkit-touch-callout: none;
+    padding: 0 0;
+}
+a, img { display: block; }
+a:active, button:active { transform: scale(0.85); }
+sub { color: #E4B372;
+    font-weight: 100;
+    font-style: italic;
+    font-size: 1rem;
+}
+
+
+
+
+                /* Фиксировання шапка и нижняя фиксировання панель навигации*/
+#top-header, #nav-bar, #order-btn-box {
+    position: fixed;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    left: 50%;
+    bottom: 3rem;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 25rem;
+    height: 4rem;
+    background-color: var(--glass-wood);
+    backdrop-filter: blur(3px);
+    border-radius: 2rem;
+    box-shadow: 0 0 5px var(--glass-wood);
+    z-index: 1000;
+}
+#top-header { top: 1rem; }
+#nav-bar, #order-btn-box { bottom: 3rem; }
+#logo { height: 80%; }
+.nav-btn, .nav-marker { height: 100%; }
+.nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+}
+.nav-icon { width: 3rem; height: 3rem; }
+.nav-marker {
+    position: absolute;
+    top: 0;
+    width: 36%;
+    background: radial-gradient(circle at 50% 40%, transparent, var(--dusty-taupe));
+    transition: 0.3s;
+    left: 32%;
+    border-radius: 2rem;
+}
+#order-btn-box {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#order-btn-hide img { width: 1rem; }
+#order-btn { font-size: 1.6rem; }
+#order-btn span { font-size: 1.2rem; }
+.nav-btn:nth-child(2), #order-btn { animation: for-order-btn 1.5s infinite}
+@keyframes for-order-btn {
+    0% { color: var(--dusty-taupe)}
+    50% { color: white; transform: scale(1.05); }
+    100% { color: var(--dusty-taupe)}
+}
+
+
+
+
+                /* Три основных контейнера, в которых будет весь контент */
+.page {
+    height: 100%;
+    padding: 4rem 0.5rem 9rem;
+    max-width: 30rem;
+    margin: 0 auto;
+}
+
+
+
+                /* Селектор типа продукта */
+.product-type-selector {
+    display: inline-flex;
+    position: relative;
+}
+.selector-btn {
+    width: 5rem;
+    height: 3rem;
+    padding-bottom: 1rem;
+}
+.selector-btn img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform: rotate(5deg) scale(0.7);
+    opacity: 0.6;
+    z-index: 1;
+}
+.active-selector {
+    background-color: var(--dusty-taupe);
+    border-radius: 1rem 1rem 0 0;
+}
+.active-selector:active { transform: scale(1) translateY(3px); }
+.lonely-product-box .product-quantity-box { margin-top: 0.1rem;}
+
+
+                /* Контейнер для заказа продукта */
+.product-box, .lonely-product-box { margin: 2rem 0}
+.product-quantity-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+    text-align: center;
+    background-color: var(--dusty-taupe);
+    border-radius: 1rem;
+    margin-top: -1rem;
+}
+
+                /* Бокс для изменения количества */
+.btns-img-box {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+.delete-box {
+    width: 3rem;
+    height: 100%;
+}
+.return-icon { width: 70%;}
+.product-img { width: 10rem; height: 6rem; }
+.increment-btns {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 5rem;
+}
+.q-btn { 
+    width: 100%;
+    background-color: var(--olive-wood);
+    padding: 0.4rem 0;
+    margin: 0.2rem 0;
+    border-radius: 0.8rem;
+    font-size: 0.9rem;
+}
+
+                /* Дисплей с результатами */
+.results-box {
+    width: 90%;
+    margin: 0.3rem;
+}
+.result-string {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--olive-wood);
+    font-size: 0.8rem;
+    margin: 3px;
+    padding: 0 5px;
+    border-radius: 0.4rem 0.2rem;
+}
+.product-name { font-size: 1rem; }
+.result-value { font-size: 1.5rem; }
+.hide {
+    opacity: 0.4;
+    transform: scale(0.95)
+}
+
+
+
+                /* Первый контейнер с информацией о компании */
+#contacts-cntnr {
+    display: flex;
+    justify-content: space-evenly;
+}
+#info-page h2 {
+    margin-top: 20px;
+}
