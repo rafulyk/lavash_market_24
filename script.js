@@ -1,6 +1,8 @@
 //ГЛОБАЛЬНОЕ
 document.addEventListener('touchstart', function() {}, {passive: true});
-const productBoxes = document.querySelectorAll('.product-box');
+
+
+//НАВБАР: ПЕРЕКЛЮЧЕНИЕ МЕЖДУ СТРАНИЦАМИ И КНОПКА ЗАКАЗА
 const navBtns = document.querySelectorAll('.nav-btn');
 const pages = document.querySelectorAll('.page');
 const navBar = document.getElementById('nav-bar');
@@ -12,8 +14,8 @@ const order = document.getElementById('order');
 const orderBtn = document.getElementById('order-btn');
 const closeOrderBtn = document.getElementById('close-order-btn');
 const allResultsValues = document.querySelectorAll('.result-value');
-const orderResultBoxes = order.querySelectorAll('.results-box');
 const totalSum = orderBtn.querySelector('span');
+
 function openOrderBtnFunction() {
     if (pages[1].hasAttribute('hidden') === false) {
         orderBtnBox.removeAttribute('hidden');
@@ -25,7 +27,7 @@ function orderBtnHideFunction() {
     navBar.removeAttribute('hidden');
 }
 function closeOrderFunction() {
-    productBoxes.forEach(item => item.removeAttribute('hidden'));
+    productBox.forEach(item => item.removeAttribute('hidden'));
     order.setAttribute('hidden', '');
 }
 function calcAllQuantity() {
@@ -37,8 +39,6 @@ function calcAllQuantity() {
     return totalSum;
 }
 
-
-//НАВБАР: ПЕРЕКЛЮЧЕНИЕ МЕЖДУ СТРАНИЦАМИ И КНОПКА ЗАКАЗА
 for (let i = 0; i < navBtns.length; i++) {
     navBtns[i].addEventListener('click', () => {
         navMarker.style.left = i * 32 + '%';
@@ -60,66 +60,56 @@ navMarker.addEventListener('click', () => {
 
 
 //БЛОКИ С КАРТОЧКАМИ ТОВАРОВ
-for (let b = 0; b < productBoxes.length; b++) {
-    const selectorBtns = productBoxes[b].querySelectorAll('.selector-btn');
-    const btnsImgBoxes = productBoxes[b].querySelectorAll('.btns-img-box');
-    const incrementBtnsBoxes = productBoxes[b].querySelectorAll('.increment-btns');
-    const deleteBtns = productBoxes[b].querySelectorAll('.delete-btn');
-    const resultValues = productBoxes[b].querySelectorAll('.result-value');
-    const resultStrings = productBoxes[b].querySelectorAll('.result-string');
-    const orderResultValues = orderResultBoxes[b].querySelectorAll('.result-value');
-    const orderResultStrings = orderResultBoxes[b].querySelectorAll('.result-string');
 
-    for (let p = 0; p < btnsImgBoxes.length; p++) {
-        const incrementBtns = incrementBtnsBoxes[p].querySelectorAll('.q-btn');
-        function switchTab() {
-            selectorBtns.forEach(btn => btn.classList.remove('active-selector'));
-            selectorBtns[p].classList.add('active-selector');
-            btnsImgBoxes.forEach(item => item.setAttribute('hidden', ''));
-            btnsImgBoxes[p].removeAttribute('hidden');
-            resultStrings.forEach(item => item.classList.add('hide'));
-            resultStrings[p].classList.remove('hide');
-            selectorBtns.forEach(btn => btn.setAttribute('aria-selected', 'false'));
-            selectorBtns[p].setAttribute('aria-selected', 'true');
+
+const stringBtns = document.querySelectorAll('.string-btn');
+const productImgs = document.querySelectorAll('.product-img');
+const bigQBtnsBox = document.getElementById('big-q-btns');
+const smallQBtnsBox = document.getElementById('small-q-btns');
+const bigQBtns = bigQBtnsBox.querySelectorAll('.q-btn');
+const smallQBtns = smallQBtnsBox.querySelectorAll('.q-btn');
+const values = document.querySelectorAll('.value');
+const deleteBtn = document.getElementById('delete-btn');
+let orderArr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+for (let b = 0; b < stringBtns.length; b++) {
+    stringBtns[b].addEventListener('click', () => {
+        productImgs.forEach(item => item.setAttribute('hidden', ''));
+        stringBtns.forEach(item => item.dataset.visible = 'false');
+        stringBtns.forEach(item => item.classList.add('hide'));
+        stringBtns.forEach(item => item.setAttribute('aria-selected', 'false'));
+        productImgs[b].removeAttribute('hidden');
+        stringBtns[b].dataset.visible = 'true';
+        stringBtns[b].classList.remove('hide');
+        stringBtns[b].setAttribute('aria-selected', 'true');
+        if (stringBtns[b].dataset.group === 'small-q' && smallQBtnsBox.hasAttribute('hidden')) {
+            smallQBtnsBox.removeAttribute('hidden');
+            bigQBtnsBox.setAttribute('hidden', '');
+        } else if (stringBtns[b].dataset.group !== 'small-q' && bigQBtnsBox.hasAttribute('hidden')) {
+            smallQBtnsBox.setAttribute('hidden', '');
+            bigQBtnsBox.removeAttribute('hidden');
         }
-        selectorBtns[p].addEventListener('click', switchTab);
-        resultStrings[p].addEventListener('click', switchTab);
-        for (let btn of incrementBtns) {
-            btn.addEventListener('click', () => {
-                deleteBtns[p].removeAttribute('hidden');
-                resultValues[p].textContent = Number(resultValues[p].textContent) + Number(btn.dataset.quantity);
-                orderResultStrings[p].removeAttribute('hidden');
-                orderResultValues[p].textContent = resultValues[p].textContent;
-                totalSum.textContent = calcAllQuantity() + 'шт';
-                openOrderBtnFunction();
-            })
+        if (orderArr[b] === 0) {
+            deleteBtn.setAttribute('hidden', '');
         }
-        deleteBtns[p].addEventListener('click', () => {
-            resultValues[p].textContent = 0;
-            orderResultValues[p].textContent = 0;
-            orderResultStrings[p].setAttribute('hidden', '');
-            deleteBtns[p].setAttribute('hidden', '');
-            if (calcAllQuantity() === 0) {
-                orderBtnHideFunction();
-            }
-        })
-    }
+    })
 }
-
-
-//ОТПРАВЛЯЕМ ЗАКАЗ
-orderBtn.addEventListener('click', () => {
-    if (order.hasAttribute('hidden') === false) {
-        orderResultBoxes.forEach(item => ordersBox.appendChild(item));
-        closeOrderFunction();
-        orderBtnHideFunction();
-        alert('Ваш заказ отправлен! Отслеживайте Ваши заказы в личном кабинете!');
-        for (let a = 0; a < 10; a++) {
-            allResultsValues[a].textContent = 0
-        }
-    } else {
-        productBoxes.forEach(item => item.setAttribute('hidden', ''));
-        order.removeAttribute('hidden');
-    }
-})
-closeOrderBtn.addEventListener('click', closeOrderFunction);
+function qFunction(btn) {
+    const arrStringBtns = Array.from(stringBtns);
+    const activeIndex = arrStringBtns.findIndex(item => item.dataset.visible === 'true');
+    deleteBtn.removeAttribute('hidden');
+    orderArr[activeIndex] += Number(btn.dataset.quantity);
+    values[activeIndex].innerHTML =  orderArr[activeIndex] + '<span class="sub">шт</span>';
+}
+for (let qBtn of bigQBtns) {
+    qBtn.addEventListener('click', () => qFunction(qBtn));
+}
+for (let qBtn of smallQBtns) {
+    qBtn.addEventListener('click', () => qFunction(qBtn));
+}
+deleteBtn.addEventListener('click', () => {
+    const arrStringBtns = Array.from(stringBtns);
+    const activeIndex = arrStringBtns.findIndex(item => item.dataset.visible === 'true');
+    orderArr[activeIndex] = 0;
+    values[activeIndex].innerHTML = '';
+    deleteBtn.setAttribute('hidden', '');
+    })
