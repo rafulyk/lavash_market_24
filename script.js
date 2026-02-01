@@ -8,13 +8,7 @@ const pages = document.querySelectorAll('.page');
 const navBar = document.getElementById('nav-bar');
 const ordersBox = document.getElementById('orders-box');
 const navMarker = document.querySelector('.nav-marker');
-const orderBtnHide = document.getElementById('order-btn-hide');
-const orderBtnBox = document.getElementById('order-btn-box');
 const order = document.getElementById('order');
-const orderBtn = document.getElementById('order-btn');
-const closeOrderBtn = document.getElementById('close-order-btn');
-const allResultsValues = document.querySelectorAll('.result-value');
-const totalSum = orderBtn.querySelector('span');
 
 function openOrderBtnFunction() {
     if (pages[1].hasAttribute('hidden') === false) {
@@ -48,10 +42,7 @@ for (let i = 0; i < navBtns.length; i++) {
         navBtns[i].setAttribute('aria-selected', 'true');
     })
 }
-orderBtnHide.addEventListener('click', () => {
-    orderBtnHideFunction();
-    closeOrderFunction();
-})
+
 navMarker.addEventListener('click', () => {
     if (calcAllQuantity() !== 0) {
         openOrderBtnFunction();
