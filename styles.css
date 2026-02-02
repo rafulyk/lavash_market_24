@@ -15,7 +15,7 @@ body, button {
 }
 body {
     height: 100%;
-    background: url("background.png") center/40% repeat;
+    background: url("background.png") center/80% repeat;
 }
 button {
     background: transparent;

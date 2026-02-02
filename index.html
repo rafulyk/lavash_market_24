@@ -16,7 +16,7 @@
 <header>
 <!--ФИКС ШАПКА-->
     <div id="top-header">
-        <img id="logo" src="logos/Lmarket.png" alt="Логотип компании">
+        <img id="logo" src="logos/lmarket.png" alt="Логотип компании">
     </div>
 <!--ФИКС НАВБАР-->
     <div id="nav-bar" role="tablist" aria-label="Навигация по страницам">
@@ -108,22 +108,25 @@
             </div>
         </div>
 <!--ФОРМА ДЛЯ ОТПРАВКИ ЗАКАЗА-->
-        <div id="form-box">
-            <label for="city">Выберите город:</label>
-            <select id="city" name="city">
-                <option value="">город</option>
-                <option value="ufa">Уфа</option>
-                <option value="moskva">Москва</option>
-                <option value="almetevsk">Алметьевск</option>
-                <option value="belebei">Белебей</option>
-                <option value="birsk">Бирск</option>
-            </select><br>
-            <label for="order-date">Дата доставки:</label>
-            <input type="date" id="order-date" name="order-date"><br>
-            <label for="address">Ваш адрес:</label>
-            <input id="address" type="text" placeholder="и пожелания к заказу" minlength="5" maxlength="40"><br>
-            <button id="order-btn" type="submit">Отправить заказ</button>
-        </div>
+        <form>
+            <div id="form-box">
+                <label for="city">Выберите город:</label>
+                <select id="city" name="city" required>
+                    <option value="">город</option>
+                    <option value="ufa">Уфа</option>
+                    <option value="moskva">Москва</option>
+                    <option value="almetevsk">Алметьевск</option>
+                    <option value="belebei">Белебей</option>
+                    <option value="birsk">Бирск</option>
+                </select><br>
+                <label for="order-date">Дата доставки:</label>
+                <input type="date" id="order-date" name="order-date" required><br>
+                <label for="address">Ваш адрес:</label>
+                <input id="address" type="text" placeholder="и пожелания к заказу" minlength="5" maxlength="40" required><br>
+                <button id="order-btn" type="submit">Отправить заказ</button>
+            </div>
+        
+        </form>
     </section>
 <!--ЛИЧНЫЙ КАБИНЕТ-->
     <section class="page" id="account-page" role="tabpanel" hidden>
